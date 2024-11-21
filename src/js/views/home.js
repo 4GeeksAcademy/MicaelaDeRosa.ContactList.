@@ -1,18 +1,24 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
-import { Link } from "react-router-dom";
+import { ContactCard } from "../component/ContactCard";
+import { Context } from "../store/appContext";
 
+export const Home = () => {
+  const { actions, store } = useContext(Context);
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<Link to="/New-Contact" >
-			<button className="btn btn-success">Add contact</button>
-		</Link>
-		<Link to = "/Edit-Contact">
-			<button className="btn btn-danger"></button>
-		</Link>
-
-	</div>
-);
+  return (
+    <div className="text-center mt-4">
+      <div className="card-container">
+        <div className="row">
+          {store.contacts.map((contact, index) => (
+            <ContactCard
+              key={index}
+              contact={contact}
+              className="contact-card col-xl-4 col-sm-6 mb-3"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
